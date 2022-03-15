@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище donorModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Edinica">
+    <Key>
+      <PropertyRef Name="ID_Edinica" />
+    </Key>
+    <Property Name="ID_Edinica" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GUID_Donor" Type="nchar" MaxLength="10" />
+    <Property Name="Component" Type="nchar" MaxLength="6" Nullable="false" />
+    <Property Name="FK_Status" Type="int" Nullable="false" />
+    <Property Name="Date_Sbora" Type="date" Nullable="false" />
+    <Property Name="Date_Freeze" Type="date" />
+    <Property Name="Group" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="Rh" Type="nchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="Status">
+    <Key>
+      <PropertyRef Name="ID_Status" />
+    </Key>
+    <Property Name="ID_Status" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Status" Type="nvarchar" MaxLength="40" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Edinica_Status">
+    <End Role="Status" Type="Self.Status" Multiplicity="1" />
+    <End Role="Edinica" Type="Self.Edinica" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Status">
+        <PropertyRef Name="ID_Status" />
+      </Principal>
+      <Dependent Role="Edinica">
+        <PropertyRef Name="FK_Status" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Хранилище donorModelContainer">
+    <EntitySet Name="Edinica" EntityType="Self.Edinica" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Edinica_Status" Association="Self.FK_Edinica_Status">
+      <End Role="Status" EntitySet="Status" />
+      <End Role="Edinica" EntitySet="Edinica" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

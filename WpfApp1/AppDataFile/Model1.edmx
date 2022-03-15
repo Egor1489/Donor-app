@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище donorModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Edinica">
+          <Key>
+            <PropertyRef Name="ID_Edinica" />
+          </Key>
+          <Property Name="ID_Edinica" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GUID_Donor" Type="nchar" MaxLength="10" />
+          <Property Name="Component" Type="nchar" MaxLength="6" Nullable="false" />
+          <Property Name="FK_Status" Type="int" Nullable="false" />
+          <Property Name="Date_Sbora" Type="date" Nullable="false" />
+          <Property Name="Date_Freeze" Type="date" />
+          <Property Name="Group" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Rh" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="ID_Status" />
+          </Key>
+          <Property Name="ID_Status" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Status" Type="nvarchar" MaxLength="40" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Edinica_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="Edinica" Type="Self.Edinica" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="ID_Status" />
+            </Principal>
+            <Dependent Role="Edinica">
+              <PropertyRef Name="FK_Status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище donorModelContainer">
+          <EntitySet Name="Edinica" EntityType="Self.Edinica" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Edinica_Status" Association="Self.FK_Edinica_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Edinica" EntitySet="Edinica" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="donorModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Edinica">
+          <Key>
+            <PropertyRef Name="ID_Edinica" />
+          </Key>
+          <Property Name="ID_Edinica" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GUID_Donor" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Component" Type="String" MaxLength="6" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="FK_Status" Type="Int32" Nullable="false" />
+          <Property Name="Date_Sbora" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Date_Freeze" Type="DateTime" Precision="0" />
+          <Property Name="Group" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Rh" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Status" Relationship="Self.FK_Edinica_Status" FromRole="Edinica" ToRole="Status" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="ID_Status" />
+          </Key>
+          <Property Name="ID_Status" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Status1" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Edinica" Relationship="Self.FK_Edinica_Status" FromRole="Status" ToRole="Edinica" />
+        </EntityType>
+        <Association Name="FK_Edinica_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="Edinica" Type="Self.Edinica" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="ID_Status" />
+            </Principal>
+            <Dependent Role="Edinica">
+              <PropertyRef Name="FK_Status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="donorEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Edinica" EntityType="Self.Edinica" />
+          <EntitySet Name="Status" EntityType="Self.Status" />
+          <AssociationSet Name="FK_Edinica_Status" Association="Self.FK_Edinica_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Edinica" EntitySet="Edinica" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище donorModelContainer" CdmEntityContainer="donorEntities">
+          <EntitySetMapping Name="Edinica">
+            <EntityTypeMapping TypeName="donorModel.Edinica">
+              <MappingFragment StoreEntitySet="Edinica">
+                <ScalarProperty Name="ID_Edinica" ColumnName="ID_Edinica" />
+                <ScalarProperty Name="GUID_Donor" ColumnName="GUID_Donor" />
+                <ScalarProperty Name="Component" ColumnName="Component" />
+                <ScalarProperty Name="FK_Status" ColumnName="FK_Status" />
+                <ScalarProperty Name="Date_Sbora" ColumnName="Date_Sbora" />
+                <ScalarProperty Name="Date_Freeze" ColumnName="Date_Freeze" />
+                <ScalarProperty Name="Group" ColumnName="Group" />
+                <ScalarProperty Name="Rh" ColumnName="Rh" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Status">
+            <EntityTypeMapping TypeName="donorModel.Status">
+              <MappingFragment StoreEntitySet="Status">
+                <ScalarProperty Name="ID_Status" ColumnName="ID_Status" />
+                <ScalarProperty Name="Status1" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

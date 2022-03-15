@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="donorModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Edinica">
+    <Key>
+      <PropertyRef Name="ID_Edinica" />
+    </Key>
+    <Property Name="ID_Edinica" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GUID_Donor" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="Component" Type="String" MaxLength="6" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="FK_Status" Type="Int32" Nullable="false" />
+    <Property Name="Date_Sbora" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Date_Freeze" Type="DateTime" Precision="0" />
+    <Property Name="Group" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Rh" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="Status" Relationship="Self.FK_Edinica_Status" FromRole="Edinica" ToRole="Status" />
+  </EntityType>
+  <EntityType Name="Status">
+    <Key>
+      <PropertyRef Name="ID_Status" />
+    </Key>
+    <Property Name="ID_Status" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Status1" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Edinica" Relationship="Self.FK_Edinica_Status" FromRole="Status" ToRole="Edinica" />
+  </EntityType>
+  <Association Name="FK_Edinica_Status">
+    <End Role="Status" Type="Self.Status" Multiplicity="1" />
+    <End Role="Edinica" Type="Self.Edinica" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Status">
+        <PropertyRef Name="ID_Status" />
+      </Principal>
+      <Dependent Role="Edinica">
+        <PropertyRef Name="FK_Status" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="donorEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Edinica" EntityType="Self.Edinica" />
+    <EntitySet Name="Status" EntityType="Self.Status" />
+    <AssociationSet Name="FK_Edinica_Status" Association="Self.FK_Edinica_Status">
+      <End Role="Status" EntitySet="Status" />
+      <End Role="Edinica" EntitySet="Edinica" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
