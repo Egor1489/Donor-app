@@ -5,14 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="700" Width="900">
+        Title="Центр заготовки крови и её компонентов" Height="700" Width="900">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="49*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="23*"/>
             <RowDefinition Height="200*"/>
 
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Background="#FFE1E4FF" Orientation="Horizontal" >
+        <StackPanel Grid.Row="0" Background="#FFE1E4FF" Orientation="Horizontal" Grid.ColumnSpan="2" Margin="0,0,0,613" Grid.RowSpan="2" >
             <Image Source=".//Resources/Logo.png" Width="55" HorizontalAlignment="Left" Margin="10 0 0 0"/>
             <Button x:Name="btnBack" Click="btnBack_Click" 
                     Width="150" Height="30" FontSize="17"
@@ -26,17 +30,17 @@
                     >FAQ</Button>
 
         </StackPanel>
-        <StackPanel Grid.Row="1" VerticalAlignment="Center">
+        <StackPanel Grid.Row="1" VerticalAlignment="Center" Grid.ColumnSpan="2">
 
         </StackPanel>
 
 
-        <StackPanel Grid.Row="1" VerticalAlignment="Center">
+        <StackPanel Grid.Row="1" VerticalAlignment="Center" Grid.ColumnSpan="2">
             <Image Source=".//Resources/Logo.png"
                    Opacity=".1"
                    Width="490"/>
         </StackPanel>
-            <Frame x:Name="FrmMain" Grid.Row="1" NavigationUIVisibility="Hidden"></Frame>
+        <Frame x:Name="FrmMain" Grid.Row="1" NavigationUIVisibility="Hidden" Grid.ColumnSpan="2"></Frame>
 
 
     </Grid>

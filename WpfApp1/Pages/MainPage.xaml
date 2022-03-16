@@ -15,15 +15,13 @@
             <StackPanel Orientation="Vertical">
                 <Button Style="{StaticResource mainBtn}"
                         Name="btnEdinica"
-                        Content="Единица"
+                        Content="Компонент"
                         Click="BtnEdinica_Click"/>
                 <Button Style="{StaticResource mainBtn}"
                          Name="btnEdinicaAdd"
-                        Content="Добавить единицу" 
+                        Content="Добавить компонент" 
                         Click="BtnEdinicaAdd_Click"                
                         />
-
-
             </StackPanel>
            
         </StackPanel>
